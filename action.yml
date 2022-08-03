@@ -6,10 +6,10 @@ inputs:
     required: false
     default: 'https://reqover-io.herokuapp.com'
   projectToken:
-    description: 'Reqover project id'
+    description: 'Reqover project token'
     required: true
   buildName:
-    description: 'Reqover build name for selected project'
+    description: 'Reqover build name for target project'
     required: true
   githubToken:
     description: 'Github token of the repository (automatically created by Github)'
