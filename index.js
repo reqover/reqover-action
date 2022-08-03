@@ -22,8 +22,10 @@ async function run() {
 
     console.log(`Issue number: ${pull_number}`);
     console.log(`About to get information for build: ${buildId}!`);
-    console.log(`TOKEN ${github_token}`)
-    
+    if(!github_token){
+      console.log(`TOKEN is not set`)
+    }
+
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
     
