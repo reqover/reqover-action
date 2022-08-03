@@ -18,9 +18,8 @@ async function run() {
       return;
     }
 
-    const issueNumber = github.context.issue.number;
-    console.log(`Issue number ${issueNumber}`);
-    console.log(`About to get information for ${buildId}!`);
+    console.log(`Issue number: ${pull_number}`);
+    console.log(`About to get information for build: ${buildId}!`);
 
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
