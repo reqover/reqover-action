@@ -7,7 +7,7 @@ try {
   const buildId = core.getInput('build-id');
   const ghToken = core.getInput('github-token');
 
-  const issueNumber = context.issue.number;
+  const issueNumber = github.context.issue.number;
   console.log(`Issue number ${issueNumber}`);
   console.log(`About to get information for ${buildId}!`);
 
