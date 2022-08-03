@@ -35,10 +35,13 @@ async function run() {
       ...context.repo,
       issue_number: pull_number,
       body: `#### Reqover report
- Full: ${summary.full}%
- Missing: ${summary.missing}%
- Partial: ${summary.partial}%
- Skipped: ${summary.skipped}%
+
+ Operations coverage result(%):
+
+ Full: ${summary.full}
+ Missing: ${summary.missing}
+ Partial: ${summary.partial}
+ Skipped: ${summary.skipped}
       `,
     });
   } catch (error) {
