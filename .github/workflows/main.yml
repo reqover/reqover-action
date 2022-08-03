@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Reqover action step
         id: hello
-        uses: octocat/reqover-action@v0.1
+        uses: ./
         with:
           build-id: 'td0wsmc2xlet'
       # Use the output from the `hello` step
