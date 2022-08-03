@@ -10,6 +10,7 @@ jobs:
         uses: reqover/reqover-action@master
         with:
           build-id: 'td0wsmc2xlet'
+          github-token: ${{secrets.GITHUB_TOKEN}}
       # Use the output from the `hello` step
       #- name: Get the output time
       #  run: echo "The time was ${{ steps.hello.outputs.time }}"
