@@ -9,8 +9,6 @@ async function run() {
     const github_token = core.getInput('GITHUB_TOKEN');
     const pr_number = core.getInput('pr_number');
 
-    
-
     const context = github.context;
 
     const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
@@ -22,8 +20,8 @@ async function run() {
 
     console.log(`Issue number: ${pull_number}`);
     console.log(`About to get information for build: ${buildId}!`);
-    if(!github_token){
-      console.log(`TOKEN is not set`)
+    if(github_token){
+      console.log(`TOKEN is set`)
     }
 
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
