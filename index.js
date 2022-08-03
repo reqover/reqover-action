@@ -4,9 +4,10 @@ const axios = require('axios').default;
 
 async function run() {
   try {
-    const serverUrl = core.getInput('server-url');
-    const buildId = core.getInput('build-id');
-    const github_token = core.getInput('GITHUB_TOKEN');
+    const serverUrl = core.getInput('serverUrl');
+    const projectToken = core.getInput('projectToken');
+    const buildName = core.getInput('buildName');
+    const github_token = core.getInput('githubToken');
     const pr_number = core.getInput('pr_number');
 
     const context = github.context;
@@ -14,35 +15,32 @@ async function run() {
     const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
 
     if (!pull_number) {
-      core.setFailed('No pull request in input neither in current context.');
       return;
     }
 
-    console.log(`Issue number: ${pull_number}`);
-    console.log(`About to get information for build: ${buildId}!`);
+    console.log(`About to get information for build: ${buildName}!`);
     if(!github_token){
-      console.log(`TOKEN is not set`)
+      core.setFailed('`Github TOKEN is not set');
+      return;
     }
 
-    const response = await axios.get(`${serverUrl}/builds/${buildId}`);
+    const response = await axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 
     const summary = response.data.report.result.summary
     console.log(JSON.stringify(summary, null, 2));
     
     const octokit = new github.getOctokit(github_token);
 
-    const { data: comment } = await octokit.rest.issues.createComment({
+    await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_number,
       body: `#### Reqover report
-- Full: ${summary.operations.full}
-- Missing: ${summary.operations.missing}
-- Partial: ${summary.operations.partial}
-- Skipped: ${summary.operations.skipped}
+Full: ${summary.operations.full}
+Missing: ${summary.operations.missing}
+Partial: ${summary.operations.partial}
+Skipped: ${summary.operations.skipped}
       `,
     });
-
-    console.log(`Comment ${comment.id} was added`)
   } catch (error) {
     core.setFailed(error.message);
   }

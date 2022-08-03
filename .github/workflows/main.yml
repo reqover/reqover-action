@@ -10,5 +10,6 @@ jobs:
       - name: Reqover action step
         uses: ./
         with:
-          build-id: 'td0wsmc2xlet'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: 'td0wsmc2xlet'
+          buildName: PR-1
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

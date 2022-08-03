@@ -1,14 +1,17 @@
 name: 'Reqover'
 description: 'Publish reqover results'
 inputs:
-  server-url:
+  serverUrl:
     description: 'Reqover server url'
     required: false
     default: 'https://reqover-io.herokuapp.com'
-  build-id:
-    description: 'Build id'
+  projectToken:
+    description: 'Reqover project id'
     required: true
-  GITHUB_TOKEN:
+  buildName:
+    description: 'Reqover build name for selected project'
+    required: true
+  githubToken:
     description: 'Github token of the repository (automatically created by Github)'
     required: true
 runs:
