@@ -2,32 +2,50 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const axios = require('axios').default;
 
-try {
-  const serverUrl = core.getInput('server-url');
-  const buildId = core.getInput('build-id');
-  const ghToken = core.getInput('github-token');
+async function run() {
+  try {
+    const serverUrl = core.getInput('server-url');
+    const buildId = core.getInput('build-id');
+    const github_token = core.getInput('GITHUB_TOKEN');
+    const pr_number = core.getInput('pr_number');
 
-  const issueNumber = github.context.issue.number;
-  console.log(`Issue number ${issueNumber}`);
-  console.log(`About to get information for ${buildId}!`);
+    const context = github.context;
 
-  axios.get(`${serverUrl}/builds/${buildId}`)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data.report.result.summary, null, 2));
-    github.issues.createComment({
-      issue_number: github.context.issue.number,
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      body: '👋 Thanks for reporting!'
-    })
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
-  // Get the JSON webhook payload for the event that triggered the workflow
-  // const payload = JSON.stringify(github.context.payload, undefined, 2)
-  // console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
+    const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
+
+    if (!pull_number) {
+      core.setFailed('No pull request in input neither in current context.');
+      return;
+    }
+
+    console.log(`Issue number: ${pull_number}`);
+    console.log(`About to get information for build: ${buildId}!`);
+    if(!github_token){
+      console.log(`TOKEN is not set`)
+    }
+
+    const response = await axios.get(`${serverUrl}/builds/${buildId}`);
+
+    const summary = response.data.report.result.summary
+    console.log(JSON.stringify(summary, null, 2));
+    
+    const octokit = new github.getOctokit(github_token);
+
+    const { data: comment } = await octokit.rest.issues.createComment({
+      ...context.repo,
+      issue_number: pull_number,
+      body: `#### Reqover report
+- Full: ${summary.operations.full}
+- Missing: ${summary.operations.missing}
+- Partial: ${summary.operations.partial}
+- Skipped: ${summary.operations.skipped}
+      `,
+    });
+
+    console.log(`Comment ${comment.id} was added`)
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 }
+
+run()
