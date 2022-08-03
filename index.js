@@ -6,7 +6,7 @@ async function run() {
   try {
     const serverUrl = core.getInput('server-url');
     const buildId = core.getInput('build-id');
-    const github_token = core.getInput('github-token');
+    const github_token = core.getInput('GITHUB_TOKEN');
     const pr_number = core.getInput('pr_number');
 
     
