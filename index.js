@@ -25,14 +25,16 @@ async function run() {
     }
 
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
-    console.log(JSON.stringify(response.data.report.result.summary, null, 2));
+
+    const summary = response.data.report.result.summary
+    console.log(JSON.stringify(summary, null, 2));
     
     const octokit = new github.getOctokit(github_token);
 
     const { data: comment } = await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_number,
-      body: '👋 Thanks for reporting!',
+      body: `Coverage report\n ${JSON.stringify(summary, null, 2)}`,
     });
 
     console.log(`Comment ${comment.id} was added`)
