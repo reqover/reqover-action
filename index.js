@@ -35,10 +35,10 @@ async function run() {
       ...context.repo,
       issue_number: pull_number,
       body: `#### Reqover report
-      - Full: ${summary.operations.full}
-      - Missing: ${summary.operations.missing}
-      - Partial: ${summary.operations.partial}
-      - Skipped: ${summary.operations.skipped}
+- Full: ${summary.operations.full}
+- Missing: ${summary.operations.missing}
+- Partial: ${summary.operations.partial}
+- Skipped: ${summary.operations.skipped}
       `,
     });
 
