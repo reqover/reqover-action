@@ -26,11 +26,20 @@ async function run() {
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
     
     const octokit = new github.getOctokit(github_token);
-    await octokit.rest.issues.createComment({
-          ...context.repo,
-          issue_number: pull_number,
-          body: '👋 Thanks for reporting!'
+
+    const { data: comment } = await octokit.rest.issues.createComment({
+      ...context.repo,
+      issue_number: pull_number,
+      body: '👋 Thanks for reporting!',
     });
+
+    console.log(`Comment ${comment.id} was added`)
+
+    // await octokit.rest.issues.createComment({
+    //       ...context.repo,
+    //       issue_number: pull_number,
+    //       body: '👋 Thanks for reporting!'
+    // });
     
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
