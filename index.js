@@ -9,7 +9,7 @@ try {
   
   axios.get(`${serverUrl}/builds/${buildId}`)
   .then(function (response) {
-    console.log(response);
+    console.log(response.data.report);
   })
   .catch(function (error) {
     console.log(error);
