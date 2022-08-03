@@ -9,7 +9,7 @@ async function run() {
     const github_token = core.getInput('github-token');
     const pr_number = core.getInput('pr_number');
 
-    console.log(`TOKEN ${github_token}`)
+    
 
     const context = github.context;
 
@@ -22,7 +22,8 @@ async function run() {
 
     console.log(`Issue number: ${pull_number}`);
     console.log(`About to get information for build: ${buildId}!`);
-
+    console.log(`TOKEN ${github_token}`)
+    
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
     
