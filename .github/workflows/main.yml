@@ -10,4 +10,4 @@ jobs:
         uses: reqover/reqover-action@master
         with:
           build-id: 'td0wsmc2xlet'
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
