@@ -5,8 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Test Reqover action 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Reqover action step
-        uses: reqover/reqover-action@test
+        uses: ./
         with:
           build-id: 'td0wsmc2xlet'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

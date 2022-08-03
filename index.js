@@ -20,8 +20,8 @@ async function run() {
 
     console.log(`Issue number: ${pull_number}`);
     console.log(`About to get information for build: ${buildId}!`);
-    if(github_token){
-      console.log(`TOKEN is set`)
+    if(!github_token){
+      console.log(`TOKEN is not set`)
     }
 
     const response = await axios.get(`${serverUrl}/builds/${buildId}`);
@@ -29,7 +29,7 @@ async function run() {
     
     const octokit = new github.getOctokit(github_token);
 
-    const { data: comment } = await octokit.issues.createComment({
+    const { data: comment } = await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_number,
       body: '👋 Thanks for reporting!',
