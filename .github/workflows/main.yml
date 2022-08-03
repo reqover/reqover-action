@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Reqover action step
         id: hello
-        uses: ./
+        uses: reqover/reqover-action@master
         with:
           build-id: 'td0wsmc2xlet'
       # Use the output from the `hello` step
