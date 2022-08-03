@@ -14,7 +14,7 @@ try {
   axios.get(`${serverUrl}/builds/${buildId}`)
   .then(function (response) {
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
-    github.issues.createComment({
+    github.rest.issues.createComment({
       issue_number: github.context.issue.number,
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
