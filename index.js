@@ -18,7 +18,7 @@ async function run() {
       return;
     }
 
-    console.log(`About to get information for build: ${buildName}!`);
+    console.log(`About to get information for build: ${buildName}`);
     if(!github_token){
       core.setFailed('`Github TOKEN is not set');
       return;
