@@ -35,16 +35,6 @@ async function run() {
     });
 
     console.log(`Comment ${comment.id} was added`)
-
-    // await octokit.rest.issues.createComment({
-    //       ...context.repo,
-    //       issue_number: pull_number,
-    //       body: '👋 Thanks for reporting!'
-    // });
-    
-    // Get the JSON webhook payload for the event that triggered the workflow
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`);
   } catch (error) {
     core.setFailed(error.message);
   }
