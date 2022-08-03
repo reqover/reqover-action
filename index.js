@@ -34,12 +34,12 @@ async function run() {
     const { data: comment } = await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_number,
-      body: ```### Reqover report
+      body: `Reqover report
       **Full**: ${summary.operations.full}
-      Missing: ${summary.operations.missing}
-      Partial: ${summary.operations.partial}
-      Skipped: ${summary.operations.skipped}
-      ```,
+      **Missing**: ${summary.operations.missing}
+      **Partial**: ${summary.operations.partial}
+      **Skipped**: ${summary.operations.skipped}
+      `,
     });
 
     console.log(`Comment ${comment.id} was added`)
