@@ -1,17 +1,18 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const axios = require('axios').default;
 
 try {
   const serverUrl = core.getInput('server-url');
   const buildId = core.getInput('build-id');
   console.log(`About to get information for ${buildId}!`);
   
-  fetch(`${serverUrl}/builds/${buildId}`)
-  .then((response) => {
-    return response.json();
+  axios.get(`${serverUrl}/builds/${buildId}`)
+  .then(function (response) {
+    console.log(response);
   })
-  .then((data) => {
-    console.log(data);
+  .catch(function (error) {
+    console.log(error);
   });
   
   // Get the JSON webhook payload for the event that triggered the workflow
