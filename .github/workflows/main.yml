@@ -1,4 +1,4 @@
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   hello_world_job:
@@ -6,8 +6,7 @@ jobs:
     name: Test Reqover action 
     steps:
       - name: Reqover action step
-        id: hello
-        uses: reqover/reqover-action@master
+        uses: reqover/reqover-action@test
         with:
           build-id: 'td0wsmc2xlet'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
