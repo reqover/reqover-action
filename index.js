@@ -9,6 +9,8 @@ async function run() {
     const github_token = core.getInput('github-token');
     const pr_number = core.getInput('pr_number');
 
+    console.log(`TOKEN ${github_token}`)
+
     const context = github.context;
 
     const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
