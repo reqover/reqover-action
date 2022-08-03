@@ -26,7 +26,7 @@ async function run() {
 
     const response = await axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 
-    const summary = response.data.report.result.summary
+    const summary = response.operations;
     console.log(JSON.stringify(summary, null, 2));
     
     const octokit = new github.getOctokit(github_token);
