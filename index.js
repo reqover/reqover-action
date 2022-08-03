@@ -13,6 +13,9 @@ async function run() {
     const context = github.context;
 
     const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
+    const branch = parseInt(pr_number) || context.ref;
+
+    console.log(branch);
 
     if (!pull_number) {
       return;
