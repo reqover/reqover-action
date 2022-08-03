@@ -36,11 +36,13 @@ async function run() {
       issue_number: pull_number,
       body: `#### Reqover report
 
-Operations coverage result(%):
+Operations coverage result:
 - Full: ${summary.full}
 - Missing: ${summary.missing}
 - Partial: ${summary.partial}
 - Skipped: ${summary.skipped}
+
+**_values are represented in %_
       `,
     });
   } catch (error) {
