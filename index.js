@@ -15,9 +15,9 @@ try {
   .then(function (response) {
     console.log(JSON.stringify(response.data.report.result.summary, null, 2));
     github.issues.createComment({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
+      issue_number: github.context.issue.number,
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
       body: '👋 Thanks for reporting!'
     })
   })
