@@ -6,12 +6,14 @@ try {
   const buildId = core.getInput('build-id');
   console.log(`About to get information for ${buildId}!`);
   
-  const response = await fetch(`${serverUrl}/builds/${buildId}`)
+  fetch(`${serverUrl}/builds/${buildId}`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  });
   
-  const body = await response.json()   
-  
-  console.log(body.report);  
-
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
