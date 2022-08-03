@@ -27,7 +27,7 @@ async function run() {
     const response = await axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 
     const summary = response.data.operations;
-    console.log(JSON.stringify(summary, null, 2));
+    console.log(`Result:\n ${JSON.stringify(summary, null, 2)}`);
     
     const octokit = new github.getOctokit(github_token);
 
@@ -35,10 +35,10 @@ async function run() {
       ...context.repo,
       issue_number: pull_number,
       body: `#### Reqover report
-Full: ${summary.full}
-Missing: ${summary.missing}
-Partial: ${summary.partial}
-Skipped: ${summary.skipped}
+ Full: ${summary.full}
+ Missing: ${summary.missing}
+ Partial: ${summary.partial}
+ Skipped: ${summary.skipped}
       `,
     });
   } catch (error) {
