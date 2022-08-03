@@ -1,0 +1,16 @@
+name: 'Reqover'
+description: 'Publish reqover results'
+inputs:
+  server-url:
+    description: 'Reqover server url'
+    required: false
+    default: 'https://reqover-io.herokuapp.com'
+  build-id:
+    description: 'Build id'
+    required: true
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node16'
+  main: 'index.js'
