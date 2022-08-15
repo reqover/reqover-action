@@ -29,7 +29,8 @@ async function run() {
 
     let response = await getBuildInfo(serverUrl, projectToken, buildName);
     while(!response.data.isFinished) {
-      console.log("Wait for build to be completed")
+      const isFinished = response.data.isFinished
+      console.log(`Wait for build to be completed. Current status: ${isFinished}`)
       response = await getBuildInfo(serverUrl, projectToken, buildName);
     }
 
