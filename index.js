@@ -28,8 +28,9 @@ async function run() {
     }
 
     let response = await getBuildInfo(serverUrl, projectToken, buildName);
-    while(!response.data.isFinished) {
-      const isFinished = response.data.isFinished
+    let isFinished = response.data.isFinished;
+    while(!isFinished) {
+      isFinished = response.data.isFinished;
       console.log(`Wait for build to be completed. Current status: ${isFinished}`)
       response = await getBuildInfo(serverUrl, projectToken, buildName);
     }
@@ -60,6 +61,23 @@ Operations coverage result:
 
 async function getBuildInfo (serverUrl, projectToken, buildName) {
   return axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
+}
+
+const sleepUntil = async (f, timeoutMs) => {
+  return new Promise((resolve, reject) => {
+      const timeWas = new Date();
+      const wait = setInterval(function() {
+          if (f()) {
+              console.log("resolved after", new Date() - timeWas, "ms");
+              clearInterval(wait);
+              resolve();
+          } else if (new Date() - timeWas > timeoutMs) { // Timeout
+              console.log("rejected after", new Date() - timeWas, "ms");
+              clearInterval(wait);
+              reject();
+          }
+      }, 20);
+  });
 }
 
 run()
