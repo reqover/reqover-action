@@ -27,7 +27,10 @@ async function run() {
       return;
     }
 
-    const response = await axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
+    let response = await getBuildInfo(serverUrl, projectToken, buildName);
+    while(!response.data.isFinished) {
+      response = await getBuildInfo(serverUrl, projectToken, buildName);
+    }
 
     const summary = response.data.operations;
     console.log(`Result:\n ${JSON.stringify(summary, null, 2)}`);
@@ -51,6 +54,10 @@ Operations coverage result:
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+async function getBuildInfo (serverUrl, projectToken, buildName) {
+  return axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 }
 
 run()
