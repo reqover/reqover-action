@@ -16,8 +16,7 @@ async function run() {
     const branch = parseInt(pr_number) || context.ref;
 
     console.log(`Project: ${projectToken}`);
-    console.log(`Branch: ${buildName}`);
-
+    
     if (!pull_number) {
       return;
     }
