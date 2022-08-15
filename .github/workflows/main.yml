@@ -11,5 +11,5 @@ jobs:
         uses: ./
         with:
           projectToken: cpkoaj8qiwsw
-          buildName: Master
+          buildName: master
           githubToken: ${{ secrets.GITHUB_TOKEN }}
