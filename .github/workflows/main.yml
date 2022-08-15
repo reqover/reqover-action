@@ -10,6 +10,6 @@ jobs:
       - name: Reqover action step
         uses: ./
         with:
-          projectToken: 4zjud4ttejxk
-          buildName: PR-1
+          projectToken: cpkoaj8qiwsw
+          buildName: master
           githubToken: ${{ secrets.GITHUB_TOKEN }}

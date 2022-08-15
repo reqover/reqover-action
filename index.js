@@ -13,7 +13,10 @@ async function run() {
     const context = github.context;
 
     const pull_number = parseInt(pr_number) || context.payload.pull_request?.number;
+    const branch = parseInt(pr_number) || context.ref;
 
+    console.log(`Project: ${projectToken}`);
+    
     if (!pull_number) {
       return;
     }
@@ -24,7 +27,13 @@ async function run() {
       return;
     }
 
-    const response = await axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
+    let response = await getBuildInfo(serverUrl, projectToken, buildName);
+    let completed = response.data.completed;
+    while(!completed) {
+      completed = response.data.completed;
+      console.log(`Wait for build to be completed. Current status: ${completed}`)
+      response = await getBuildInfo(serverUrl, projectToken, buildName);
+    }
 
     const summary = response.data.operations;
     console.log(`Result:\n ${JSON.stringify(summary, null, 2)}`);
@@ -48,6 +57,27 @@ Operations coverage result:
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+async function getBuildInfo (serverUrl, projectToken, buildName) {
+  return axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
+}
+
+const sleepUntil = async (f, timeoutMs) => {
+  return new Promise((resolve, reject) => {
+      const timeWas = new Date();
+      const wait = setInterval(function() {
+          if (f()) {
+              console.log("resolved after", new Date() - timeWas, "ms");
+              clearInterval(wait);
+              resolve();
+          } else if (new Date() - timeWas > timeoutMs) { // Timeout
+              console.log("rejected after", new Date() - timeWas, "ms");
+              clearInterval(wait);
+              reject();
+          }
+      }, 20);
+  });
 }
 
 run()
