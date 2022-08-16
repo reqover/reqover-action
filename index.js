@@ -27,14 +27,7 @@ async function run() {
       return;
     }
 
-    const response = await waitForBuildCompleted(getBuildInfo(serverUrl, projectToken, buildName));
-
-    let completed = response.data.completed;
-    while(!completed) {
-      completed = response.data.completed;
-      console.log(`Wait for build to be completed. Current status: ${completed}`)
-      response = await getBuildInfo(serverUrl, projectToken, buildName);
-    }
+    const response = await waitForBuildCompleted(serverUrl, projectToken, buildName, 5000);
 
     const summary = response.data.operations;
     console.log(`Result:\n ${JSON.stringify(summary, null, 2)}`);
@@ -64,9 +57,9 @@ async function getBuildInfo (serverUrl, projectToken, buildName) {
   return axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 }
 
-const waitForBuildCompleted = async (f, timeoutMs) => {
+const waitForBuildCompleted = async (serverUrl, projectToken, buildName, timeoutMs) => {
   const timeWas = new Date();
-  let response = await f();
+  let response = await getBuildInfo(serverUrl, projectToken, buildName);
   let completed = response.data.completed;
   while(!completed) {
     if(new Date() - timeWas > timeoutMs){
@@ -74,7 +67,7 @@ const waitForBuildCompleted = async (f, timeoutMs) => {
     }
     completed = response.data.completed;
     console.log(`Wait for build to be completed. Current status: ${completed}`)
-    response = await f();
+    response = await getBuildInfo(serverUrl, projectToken, buildName);
   }
 
   return response;
