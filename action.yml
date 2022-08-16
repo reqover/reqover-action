@@ -1,5 +1,8 @@
 name: 'Reqover'
 description: 'Publish reqover results'
+branding:
+  icon: 'award'  
+  color: 'green'
 inputs:
   serverUrl:
     description: 'Reqover server url'
