@@ -27,7 +27,8 @@ async function run() {
       return;
     }
 
-    let response = await getBuildInfo(serverUrl, projectToken, buildName);
+    const response = await waitForBuildCompleted(getBuildInfo(serverUrl, projectToken, buildName));
+
     let completed = response.data.completed;
     while(!completed) {
       completed = response.data.completed;
@@ -63,21 +64,20 @@ async function getBuildInfo (serverUrl, projectToken, buildName) {
   return axios.get(`${serverUrl}/${projectToken}/stats?name=${buildName}`);
 }
 
-const sleepUntil = async (f, timeoutMs) => {
-  return new Promise((resolve, reject) => {
-      const timeWas = new Date();
-      const wait = setInterval(function() {
-          if (f()) {
-              console.log("resolved after", new Date() - timeWas, "ms");
-              clearInterval(wait);
-              resolve();
-          } else if (new Date() - timeWas > timeoutMs) { // Timeout
-              console.log("rejected after", new Date() - timeWas, "ms");
-              clearInterval(wait);
-              reject();
-          }
-      }, 20);
-  });
+const waitForBuildCompleted = async (f, timeoutMs) => {
+  const timeWas = new Date();
+  let response = await f();
+  let completed = response.data.completed;
+  while(!completed) {
+    if(new Date() - timeWas > timeoutMs){
+      throw new Error(`Timeout of ${timeoutMs} ms is exceeded`)
+    }
+    completed = response.data.completed;
+    console.log(`Wait for build to be completed. Current status: ${completed}`)
+    response = await f();
+  }
+
+  return response;
 }
 
 run()
