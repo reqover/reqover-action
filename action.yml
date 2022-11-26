@@ -4,16 +4,10 @@ branding:
   icon: 'award'  
   color: 'green'
 inputs:
-  serverUrl:
-    description: 'Reqover server url'
+  filePath:
+    description: 'Coverage json file path'
     required: false
-    default: 'https://reqover-io.herokuapp.com'
-  projectToken:
-    description: 'Reqover project token'
-    required: true
-  buildName:
-    description: 'Reqover build name for target project'
-    required: true
+    default: './coverage.json'
   githubToken:
     description: 'Github token of the repository (automatically created by Github)'
     required: true
