@@ -10,6 +10,5 @@ jobs:
       - name: Reqover action step
         uses: ./
         with:
-          projectToken: cpkoaj8qiwsw
-          buildName: master
+          filePath: "./coverage.json"
           githubToken: ${{ secrets.GITHUB_TOKEN }}
