@@ -22,9 +22,9 @@ async function run() {
     }
 
     const rawData = fs.readFileSync(filePath);
-    const summary = JSON.parse(rawData);
+    const coverage = JSON.parse(rawData);
 
-    console.log(`Result:\n ${JSON.stringify(summary, null, 2)}`);
+    console.log(`Result:\n ${JSON.stringify(coverage, null, 2)}`);
     
     const octokit = new github.getOctokit(github_token);
 
@@ -34,10 +34,10 @@ async function run() {
       body: `#### Reqover report
 
 Operations coverage result:
-- Full: ${summary.full}
-- Missing: ${summary.missing}
-- Partial: ${summary.partial}
-- Skipped: ${summary.skipped}
+- Full: ${coverage.summary.operations.full}
+- Missing: ${coverage.summary.operations.missing}
+- Partial: ${coverage.summary.operations.partial}
+- Skipped: ${coverage.summary.operations.skipped}
 
 **_values are represented in %_
       `,
