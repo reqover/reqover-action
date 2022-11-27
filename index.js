@@ -43,7 +43,7 @@ function getBody(coverage) {
   let missingText = "";
   for(const [key, value] of Object.entries(coverage.missing.items)) {
     for(const item of value){
-      missingText += `- ##### ${item.method} ${item.path}\n`
+      missingText += `- ${item.method} ${item.path}\n`
     }
   }
 
@@ -55,7 +55,7 @@ function getBody(coverage) {
   - Partial: ${coverage.summary.operations.partial}
   - Skipped: ${coverage.summary.operations.skipped}
 
-  **Missing (${coverage.missing.size}):**
+  ##### Missing (${coverage.missing.size}):
   ${missingText}
   `
 }
