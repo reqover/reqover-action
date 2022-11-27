@@ -31,18 +31,36 @@ async function run() {
     await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_number,
-      body: `#### Reqover report
-
-Operations coverage result (%):
-- Full: ${coverage.summary.operations.full}
-- Missing: ${coverage.summary.operations.missing}
-- Partial: ${coverage.summary.operations.partial}
-- Skipped: ${coverage.summary.operations.skipped}
-      `,
+      body: getBody(coverage),
     });
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+function getBody(coverage) {
+
+  let missingText = "";
+
+  for(const missing of coverage.missing) {
+    for(const [key, value] of Object.entries(missing.items)) {
+      for(const item of value){
+        missingText += `- ${item.path}\n`
+      }
+    }
+  }
+
+  return `#### Reqover report
+
+  Operations coverage result (%):
+  - Full: ${coverage.summary.operations.full}
+  - Missing: ${coverage.summary.operations.missing}
+  - Partial: ${coverage.summary.operations.partial}
+  - Skipped: ${coverage.summary.operations.skipped}
+
+  Missing:
+  ${missingText}
+  `
 }
 
 run()
