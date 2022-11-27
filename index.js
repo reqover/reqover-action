@@ -42,12 +42,10 @@ function getBody(coverage) {
 
   let missingText = "";
 
-  for(const missing of coverage.missing) {
-    for(const [key, value] of Object.entries(missing.items)) {
+  for(const [key, value] of Object.entries(coverage.missing.items)) {
       for(const item of value){
         missingText += `- ${item.path}\n`
       }
-    }
   }
 
   return `#### Reqover report
