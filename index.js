@@ -42,25 +42,22 @@ function getBody(coverage) {
 
   let missingText = "";
   for(const [key, value] of Object.entries(coverage.missing.items)) {
-    missingText += `${key}\n\n`
     for(const item of value){
-      missingText += `- ${item.method} ${item.path}\n`
+      missingText += `- ##### ${item.method} ${item.path}\n`
     }
   }
 
   let partialText = "";
   for(const [key, value] of Object.entries(coverage.partial.items)) {
-    partialText += `${key}\n\n`
     for(const item of value){
-      partialText += `- ${item.method} ${item.path}\n`
+      partialText += `- ##### ${item.method} ${item.path}\n`
     }
   }
 
   let fullText = "";
   for(const [key, value] of Object.entries(coverage.full.items)) {
-    fullText += `${key}\n\n`
     for(const item of value){
-      fullText += `- ${item.method} ${item.path}\n`
+      fullText += `- ##### ${item.method} ${item.path}\n`
     }
   }
 
@@ -72,13 +69,13 @@ function getBody(coverage) {
   - Partial: ${coverage.summary.operations.partial}
   - Skipped: ${coverage.summary.operations.skipped}
 
-  Missing (${coverage.missing.size}):
+  **Missing (${coverage.missing.size}):**
   ${missingText}
 
-  Partial (${coverage.partial.size}):
+  **Partial (${coverage.partial.size}):**
   ${partialText}
 
-  Full (${coverage.full.size}):
+  **Full (${coverage.full.size}):**
   ${fullText}
   `
 }
