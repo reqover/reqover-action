@@ -49,13 +49,12 @@ function getBody(coverage) {
 
   return `#### Reqover report
 
-  Operations coverage result (%):
-  - Full: ${coverage.summary.operations.full}
-  - Missing: ${coverage.summary.operations.missing}
-  - Partial: ${coverage.summary.operations.partial}
-  - Skipped: ${coverage.summary.operations.skipped}
+  Operations coverage result:
+  - Full: ${coverage.full.size}
+  - Missing: ${coverage.missing.size}
+  - Partial: ${coverage.partial.size}
 
-  ##### Missing (${coverage.missing.size}):
+  ##### Missing:
   ${missingText}
   `
 }
