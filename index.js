@@ -47,20 +47,6 @@ function getBody(coverage) {
     }
   }
 
-  let partialText = "";
-  for(const [key, value] of Object.entries(coverage.partial.items)) {
-    for(const item of value){
-      partialText += `- ##### ${item.method} ${item.path}\n`
-    }
-  }
-
-  let fullText = "";
-  for(const [key, value] of Object.entries(coverage.full.items)) {
-    for(const item of value){
-      fullText += `- ##### ${item.method} ${item.path}\n`
-    }
-  }
-
   return `#### Reqover report
 
   Operations coverage result (%):
@@ -71,12 +57,6 @@ function getBody(coverage) {
 
   **Missing (${coverage.missing.size}):**
   ${missingText}
-
-  **Partial (${coverage.partial.size}):**
-  ${partialText}
-
-  **Full (${coverage.full.size}):**
-  ${fullText}
   `
 }
 
