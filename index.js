@@ -55,9 +55,10 @@ async function run() {
     const diffInMilliseconds = now.getTime() - date.getTime();
     const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
     const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
     
     console.log(
-      `${diffInMinutes % 60} minutes, and ${diffInSeconds % 60} seconds`
+      `${diffInHours % 24} hours, ${diffInMinutes % 60} minutes, and ${diffInSeconds % 60} seconds`
     );
 
   } catch (error) {
