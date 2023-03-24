@@ -27,11 +27,11 @@ async function run() {
     
     const octokit = new github.getOctokit(github_token);
 
-    await octokit.rest.issues.createComment({
-      ...context.repo,
-      issue_number: pull_number,
-      body: getBody(coverage),
-    });
+    // await octokit.rest.issues.createComment({
+    //   ...context.repo,
+    //   issue_number: pull_number,
+    //   body: getBody(coverage),
+    // });
 
     const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
     const run_id = process.env.GITHUB_RUN_ID;
