@@ -33,6 +33,21 @@ async function run() {
       issue_number: pull_number,
       body: getBody(coverage),
     });
+
+    const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+    const run_id = process.env.GITHUB_RUN_ID;
+
+    const repo = GITHUB_REPOSITORY.split("/")[1];
+    const owner = GITHUB_REPOSITORY.split("/")[0];
+
+    const runUsage = await octokit.rest.actions.getWorkflowRunUsage({
+      owner,
+      repo,
+      run_id,
+    });
+
+    console.log(JSON.stringify(runUsage, null, 2))
+    
   } catch (error) {
     core.setFailed(error.message);
   }
