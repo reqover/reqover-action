@@ -47,7 +47,7 @@ async function run() {
 
     console.log(JSON.stringify(runInfo, null, 2));
 
-    const run_started_at = runInfo.data.run_started_at;
+    const run_started_at = runInfo.data.updated_at;
 
     const date = new Date(run_started_at);
 
