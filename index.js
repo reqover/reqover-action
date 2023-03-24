@@ -39,7 +39,7 @@ async function run() {
     const repo = GITHUB_REPOSITORY.split("/")[1];
     const owner = GITHUB_REPOSITORY.split("/")[0];
 
-    const runUsage = await octokit.rest.actions.getWorkflowRunUsage({
+    const runUsage = await octokit.rest.actions.getWorkflowRun({
       owner,
       repo,
       run_id,
