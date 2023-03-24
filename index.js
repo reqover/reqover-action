@@ -55,7 +55,7 @@ async function run() {
     const diffInMilliseconds = now.getTime() - date.getTime();
     const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
     const diffInMinutes = Math.floor(diffInSeconds / 60);
-    console.log(`The difference between now and ${dateString} is:`);
+    
     console.log(
       `${diffInMinutes % 60} minutes, and ${diffInSeconds % 60} seconds`
     );
