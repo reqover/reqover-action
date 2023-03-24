@@ -5,7 +5,7 @@ branding:
   color: 'green'
 inputs:
   filePath:
-    description: 'coverage.json file path'
+    description: 'Coverage json file path'
     required: false
     default: './coverage.json'
   githubToken:
