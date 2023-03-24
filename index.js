@@ -20,10 +20,10 @@ async function run() {
       return;
     }
 
-    const rawData = fs.readFileSync(filePath);
-    const coverage = JSON.parse(rawData);
+    // const rawData = fs.readFileSync(filePath);
+    // const coverage = JSON.parse(rawData);
 
-    console.log(`Result:\n ${JSON.stringify(coverage, null, 2)}`);
+    // console.log(`Result:\n ${JSON.stringify(coverage, null, 2)}`);
     
     const octokit = new github.getOctokit(github_token);
 
