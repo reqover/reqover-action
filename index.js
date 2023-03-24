@@ -45,7 +45,7 @@ async function run() {
       run_id,
     });
 
-    //console.log(JSON.stringify(runInfo, null, 2));
+    console.log(JSON.stringify(runInfo, null, 2));
 
     const run_started_at = runInfo.data.run_started_at;
 
