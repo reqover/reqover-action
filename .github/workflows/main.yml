@@ -3,10 +3,13 @@ on: [pull_request]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: Test Reqover action 
+    name: Test Reqover action
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - uses: jakejarvis/wait-action@master
+        with:
+          time: "30s"
       - name: Reqover action step
         uses: ./
         with:
